@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal site
 
-## Getting Started
+Next.js 16 (App Router) + Tailwind v4 + react-three-fiber. Zero-config on Vercel.
 
-First, run the development server:
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev        # http://localhost:3000
+pnpm build      # production build (also type-checks + lints)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy to Vercel
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dlx vercel        # first time: link project, accept defaults
+pnpm dlx vercel --prod
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Or push to GitHub and import the repo at vercel.com/new. Framework preset
+auto-detects Next.js; no environment variables are required.
 
-## Learn More
+## Where things live
 
-To learn more about Next.js, take a look at the following resources:
+| Path | What |
+|---|---|
+| `src/lib/site.ts` | Name, email, socials, nav. **Start here for placeholders.** |
+| `src/app/page.tsx` | Home: hero, bio, diploma popout, talks, showcase |
+| `src/app/services/page.tsx` | Services |
+| `src/app/posts/` | Posts index + `[slug]` detail |
+| `src/lib/posts.ts` | Post registry (add new posts here) |
+| `src/content/posts/*.tsx` | Post bodies, authored as React so visualizations can be embedded |
+| `src/components/viz/teamData.ts` | The "today vs tomorrow" team scenarios (people, agents, tools) |
+| `src/components/viz/TeamDiagramSVG.tsx` | 2D diagram (also the reduced-motion fallback) |
+| `src/components/viz/TeamScene3D.tsx` | three.js scene, lazy-loaded client-side only |
+| `public/images/*.svg` | Placeholder art. Replace with real photos (keep filenames or update imports). |
+| `public/models/` | Drop Blender-exported `.glb` files here if going the Blender route |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Replacing placeholders
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Search for `[` in `src/` — every bracketed string is a placeholder. Images in
+`public/images/` are labelled SVGs; swap for `.jpg`/`.png` and update the
+`width`/`height` props where they are used.
 
-## Deploy on Vercel
+## Going further with Blender
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The 3D scene is procedural today. To use Blender-authored assets:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Model in Blender, export as glTF Binary (`.glb`), Draco-compressed if large.
+2. Put the file in `public/models/`.
+3. In `TeamScene3D.tsx`, `import { useGLTF } from "@react-three/drei"` and
+   replace the `sphereGeometry` / `octahedronGeometry` meshes with
+   `<primitive object={scene} />` from `useGLTF("/models/your-file.glb")`.
+4. Preload with `useGLTF.preload("/models/your-file.glb")`.
