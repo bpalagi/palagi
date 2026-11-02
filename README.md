@@ -24,7 +24,7 @@ Vercel project `palagi` is connected to GitHub `bpalagi/palagi`: pushes to
 | Path | What |
 |---|---|
 | `src/lib/site.ts` | Name, email, socials, nav. **Start here for placeholders.** |
-| `src/app/page.tsx` | Home: hero, bio, diploma popout, talks, showcase |
+| `src/app/page.tsx` | Home: hero (circular talk photo + caption), latest posts |
 | `src/app/services/page.tsx` | Services |
 | `src/app/posts/` | Posts index + `[slug]` detail |
 | `src/lib/posts.ts` | Post registry (add new posts here) |

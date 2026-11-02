@@ -38,7 +38,7 @@ export function SiteNav() {
             );
           })}
           <a
-            href={`mailto:${site.email}`}
+            href={site.socials.x}
             className="hidden font-sans text-sm text-ink-2 hover:text-ink sm:inline"
           >
             Get in touch

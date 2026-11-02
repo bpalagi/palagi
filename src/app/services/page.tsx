@@ -182,19 +182,6 @@ export default function ServicesPage() {
       </section>
 
       <section className="border-t rule py-14">
-        <p className="eyebrow">Happy to provide references</p>
-        <blockquote className="mt-4 max-w-3xl">
-          <p className="font-serif text-2xl italic leading-snug text-ink">
-            &ldquo;[Testimonial placeholder from a team lead about a shared
-            agent engagement.]&rdquo;
-          </p>
-          <footer className="mt-3 font-sans text-sm text-ink-3">
-            &mdash; [Name] &middot; [Title], [Company]
-          </footer>
-        </blockquote>
-      </section>
-
-      <section className="border-t rule py-14">
         <p className="eyebrow">Next step</p>
         <h2 className="mt-3 font-serif text-3xl text-ink">
           Tell me which number you are stuck on.
@@ -206,7 +193,7 @@ export default function ServicesPage() {
           first.
         </p>
         <a
-          href={`mailto:${site.email}?subject=Engagement`}
+          href={site.socials.x}
           className="mt-6 inline-block rounded-sm bg-ink px-5 py-2.5 font-sans text-sm text-paper transition-colors hover:bg-accent"
         >
           Book an engagement

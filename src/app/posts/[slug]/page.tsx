@@ -51,8 +51,8 @@ export default async function PostPage(props: PageProps<"/posts/[slug]">) {
         <p className="text-lg text-ink-2">
           Working on shared agents inside a real team? I would like to hear how
           it is going.{" "}
-          <a href={`mailto:${site.email}`} className="link">
-            Write me a note.
+          <a href={site.socials.x} className="link">
+            Message me on X.
           </a>
         </p>
         <p className="mt-6 font-sans text-sm">

@@ -1,26 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PopoutFigure } from "@/components/PopoutFigure";
 import { getAllPosts, formatDate } from "@/lib/posts";
 import { site } from "@/lib/site";
-
-const talks = [
-  {
-    title: "[Talk title: Durable agents at the team level]",
-    venue: "[Conference name] · [City], [Year]",
-    href: "#",
-  },
-  {
-    title: "[Talk title: Spearheading AI adoption across an enterprise]",
-    venue: "[Conference name] · [City], [Year]",
-    href: "#",
-  },
-  {
-    title: "[Internal tech talk or meetup]",
-    venue: "[Company / meetup] · [Year]",
-    href: "#",
-  },
-];
 
 export default async function HomePage() {
   const posts = await getAllPosts();
@@ -29,24 +10,61 @@ export default async function HomePage() {
   return (
     <div className="mx-auto max-w-5xl px-5 sm:px-8">
       {/* Hero */}
-      <section className="grid gap-10 py-14 sm:grid-cols-[1fr_220px] sm:gap-14 sm:py-20">
+      <section className="grid gap-10 py-14 sm:grid-cols-[220px_1fr] sm:gap-14 sm:py-20">
+        {/* tabIndex lets touch and keyboard users open the popout via focus-within */}
+        <figure
+          tabIndex={0}
+          className="group relative mx-auto w-full max-w-[220px] self-start outline-none sm:pt-2"
+        >
+          <Image
+            src="/images/talk-portrait.jpg"
+            alt={`${site.name} presenting Durable Agents at a tech conference`}
+            width={640}
+            height={640}
+            priority
+            className="aspect-square w-full rounded-full border-[6px] border-paper-2 object-cover ring-1 ring-ink-3/40 transition-shadow group-hover:ring-accent group-focus-within:ring-accent"
+          />
+          <figcaption className="mt-4 text-xs leading-relaxed text-ink-3">
+            <p className="text-sm text-ink">Durable Agents</p>
+            <p>GTG Tech Conference 2026 &middot; Sheraton Grand Chicago Riverwalk</p>
+            <div className="pointer-events-none absolute left-0 top-full z-10 w-[min(22rem,calc(100vw-2.5rem))] pt-2 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+              <p className="translate-y-1 rounded-sm border border-l-4 border-accent/50 border-l-accent bg-paper-2 p-4 text-sm leading-relaxed text-ink shadow-2xl shadow-black/50 transition duration-200 group-hover:translate-y-0 group-focus-within:translate-y-0">
+                Shared team agents are applications, so they should be built like
+                them: version-controlled, code-reviewed, tested, observable, and
+                shipped through the same pipeline as everything else. The talk walked
+                through deploying them that way on Kubernetes with Solo.io&rsquo;s{" "}
+                <a href="https://www.solo.io/products/kagent"
+                  className="text-ink underline decoration-accent decoration-2 underline-offset-[3px] transition-colors hover:text-accent">
+                  kagent
+                </a>{" "}
+                for declarative agent deployments,{" "}
+                <a href="https://www.solo.io/products/agentgateway"
+                  className="text-ink underline decoration-accent decoration-2 underline-offset-[3px] transition-colors hover:text-accent">
+                  agentgateway
+                </a>{" "}
+                for auth, policy, and egress on every MCP and agent-to-agent call, and{" "}
+                <a href="https://www.solo.io/products/agentregistry"
+                  className="text-ink underline decoration-accent decoration-2 underline-offset-[3px] transition-colors hover:text-accent">
+                  agentregistry
+                </a>{" "}
+                as the catalog of approved agents, MCP servers, and skills.
+              </p>
+            </div>
+          </figcaption>
+        </figure>
+
         <div>
           <h1 className="font-serif text-5xl leading-[1.02] tracking-tight text-ink sm:text-6xl">
             I&rsquo;m {site.firstName}.
             <br />
-            Let&rsquo;s talk durable,{" "}
-            <em className="text-accent">team- and organization-level</em>{" "}
-            agents.
+            Let&rsquo;s talk <em className="text-accent">collaborative</em>{" "}
+            agentic systems.
           </h1>
           <p className="mt-7 max-w-xl text-xl leading-relaxed text-ink-2">
-            Classically trained engineer. Enterprise experience shipping
-            software in high-level languages, and spearheading AI adoption
-            across teams. I give tech conference talks about what happens when
-            agents get a first-class seat on the team.
-          </p>
-          <p className="mt-5 eyebrow">
-            The mission &middot;{" "}
-            <span className="text-ink">{site.mission}</span>
+            Classically trained engineer shipping enterprise distributed
+            systems and spearheading agentic workflows across teams. I give
+            tech conference talks about what happens when agents get a
+            first-class seat on the team.
           </p>
           <div className="mt-8 flex flex-wrap gap-4 font-sans text-sm">
             <Link
@@ -66,177 +84,6 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <figure className="sm:pt-2">
-          <Image
-            src="/images/headshot.svg"
-            alt={`${site.name}, current headshot`}
-            width={800}
-            height={1000}
-            priority
-            className="w-full rounded-sm bg-paper-2"
-          />
-          <figcaption className="mt-3 text-sm leading-relaxed text-ink-3">
-            Photographed {new Date().getFullYear()}. Enterprise work in
-            high-level languages, and the process of using technology to
-            produce business value.
-          </figcaption>
-        </figure>
-      </section>
-
-      {/* Bio + diploma popout */}
-      <section className="grid gap-10 border-t rule py-14 sm:grid-cols-[260px_1fr] sm:gap-14">
-        <PopoutFigure
-          src="/images/diploma.svg"
-          alt="University of Illinois Urbana-Champaign, B.S. Computer Engineering diploma"
-          width={1200}
-          height={900}
-          caption={
-            <>
-              <span className="text-ink">UIUC, Computer Engineering.</span>{" "}
-              From the fundamentals of chemistry, physics, and electronics; to
-              soldering PCBs and writing machine code; then high-level data
-              structures and algorithms. Click to enlarge.
-            </>
-          }
-        />
-        <div className="max-w-2xl">
-          <p className="eyebrow">Bio</p>
-          <div className="prose-site mt-4 space-y-5 text-lg text-ink-2">
-            <p>
-              I&rsquo;ve been building software from the bottom of the stack
-              up: first electrons, then machine code, then the high-level
-              languages that run most of the enterprise, and now AI. That
-              path shaped a bias I still carry: understand the layer below
-              you before you trust the layer above it.
-            </p>
-            <p>
-              Most of my career has been inside{" "}
-              <span className="text-ink">[large enterprise / industry]</span>,
-              turning technology into business value across{" "}
-              <span className="text-ink">[N]</span> teams. Over the last few
-              years I spearheaded AI adoption across those teams &mdash; not
-              just tooling, but the harder cultural work of getting swarm
-              enthusiasts and syntax-loving skeptics to trust the same agents.
-            </p>
-            <p>
-              That work led to a conviction I keep coming back to: agentic
-              systems need to be treated first class{" "}
-              <em>amongst teams</em>, not just handed to individuals. That is
-              what I write and speak about.
-            </p>
-          </div>
-          <p className="mt-6 font-sans text-sm">
-            <a
-              href={`mailto:${site.email}`}
-              className="link"
-            >
-              {site.email}
-            </a>
-            <span className="mx-2 text-ink-3">&middot;</span>
-            <a href={site.socials.linkedin} className="link">
-              LinkedIn
-            </a>
-            <span className="mx-2 text-ink-3">&middot;</span>
-            <a href={site.socials.github} className="link">
-              GitHub
-            </a>
-          </p>
-        </div>
-      </section>
-
-      {/* Pull quote */}
-      <section className="border-t rule py-14">
-        <blockquote className="mx-auto max-w-3xl text-center">
-          <p className="font-serif text-2xl italic leading-snug text-ink sm:text-3xl">
-            &ldquo;[Testimonial placeholder &mdash; a line from a team lead or
-            CTO about a workshop or engagement.]&rdquo;
-          </p>
-          <footer className="mt-4 font-sans text-sm text-ink-3">
-            &mdash; [Name] &middot; [Title], [Company]
-          </footer>
-        </blockquote>
-      </section>
-
-      {/* Showcase */}
-      <section className="border-t rule py-14">
-        <p className="eyebrow">Showcase</p>
-        <div className="mt-6 grid gap-6 sm:grid-cols-3">
-          <ShowcaseCard
-            href="/posts"
-            title="Writing"
-            body="Essays on multi-player agent collaboration, harnesses, and what teams look like when agents are first class."
-            cta="Open the posts"
-          />
-          <ShowcaseCard
-            href="#talks"
-            title="Talks"
-            body="Tech conference talks on AI adoption inside real enterprises — the tooling and the culture."
-            cta="See the talks"
-          />
-          <ShowcaseCard
-            href="/services"
-            title="Services"
-            body="Personal consulting and team engagements for organizations moving from individual copilots to shared agents."
-            cta="Start here"
-          />
-        </div>
-      </section>
-
-      {/* Talks */}
-      <section id="talks" className="border-t rule py-14">
-        <div className="grid gap-10 sm:grid-cols-[1fr_1fr] sm:gap-14">
-          <div>
-            <p className="eyebrow">Tech conference talks</p>
-            <ul className="mt-6 divide-y rule">
-              {talks.map((t) => (
-                <li key={t.title} className="py-4">
-                  <a href={t.href} className="link text-lg text-ink">
-                    {t.title}
-                  </a>
-                  <p className="mt-1 font-sans text-sm text-ink-3">{t.venue}</p>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-4 font-sans text-sm text-ink-3">
-              Recordings and slides will be linked here as they are published.
-            </p>
-          </div>
-          <figure>
-            <Image
-              src="/images/talk-placeholder.svg"
-              alt="On stage at a tech conference"
-              width={1600}
-              height={900}
-              className="w-full rounded-sm bg-paper-2"
-            />
-            <figcaption className="mt-3 text-sm text-ink-3">
-              [Conference name] &middot; [City], [Year]
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      {/* Enterprise experience */}
-      <section className="border-t rule py-14">
-        <p className="eyebrow">Enterprise experience</p>
-        <ul className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-4">
-          {["Company one", "Company two", "Company three", "Company four"].map(
-            (c) => (
-              <li
-                key={c}
-                className="flex items-center justify-center rounded-sm border rule bg-paper-2 p-4"
-              >
-                <Image
-                  src="/images/logo-placeholder.svg"
-                  alt={`[${c} logo]`}
-                  width={600}
-                  height={200}
-                  className="h-10 w-auto opacity-70"
-                />
-              </li>
-            ),
-          )}
-        </ul>
       </section>
 
       {/* Latest writing */}
@@ -270,36 +117,11 @@ export default async function HomePage() {
           Considering an engagement? I work with a small number of teams
           making the move from individual copilots to shared, trustworthy
           agents: talks, working sessions, and hands-on team engagements.{" "}
-          <a href={`mailto:${site.email}`} className="link">
-            Write a short note.
+          <a href={site.socials.x} className="link">
+            Send me a message on X.
           </a>
         </p>
       </section>
     </div>
-  );
-}
-
-function ShowcaseCard({
-  href,
-  title,
-  body,
-  cta,
-}: {
-  href: string;
-  title: string;
-  body: string;
-  cta: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group flex flex-col rounded-sm border rule bg-paper-2 p-6 transition-colors hover:border-accent"
-    >
-      <h3 className="font-serif text-2xl text-ink">{title}</h3>
-      <p className="mt-2 flex-1 text-ink-2">{body}</p>
-      <p className="mt-5 font-sans text-sm text-ink-3 group-hover:text-accent">
-        {cta} &rarr;
-      </p>
-    </Link>
   );
 }

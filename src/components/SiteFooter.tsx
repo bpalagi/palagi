@@ -24,22 +24,10 @@ export function SiteFooter() {
               </Link>
             ))}
             <a
-              href={`mailto:${site.email}`}
+              href={site.socials.x}
               className="font-sans text-sm text-ink-2 hover:text-ink"
             >
-              Contact
-            </a>
-            <a
-              href={site.socials.linkedin}
-              className="font-sans text-sm text-ink-2 hover:text-ink"
-            >
-              LinkedIn
-            </a>
-            <a
-              href={site.socials.github}
-              className="font-sans text-sm text-ink-2 hover:text-ink"
-            >
-              GitHub
+              X
             </a>
           </nav>
         </div>
