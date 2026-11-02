@@ -1,12 +1,15 @@
 {
-  "name": "site",
+  "name": "palagi",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:model": "node --no-warnings scripts/check-model.mts",
+    "check": "pnpm lint && tsc --noEmit && pnpm check:model && pnpm build",
+    "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",

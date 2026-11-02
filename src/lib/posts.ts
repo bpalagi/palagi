@@ -22,6 +22,14 @@ const registry: Array<() => Promise<Post>> = [
     return { ...mod.meta, Body: mod.default };
   },
   async () => {
+    const mod = await import("@/content/posts/agent-able-ladder");
+    return { ...mod.meta, Body: mod.default };
+  },
+  async () => {
+    const mod = await import("@/content/posts/agents-at-scale");
+    return { ...mod.meta, Body: mod.default };
+  },
+  async () => {
     const mod = await import("@/content/posts/placeholder-second-post");
     return { ...mod.meta, Body: mod.default };
   },

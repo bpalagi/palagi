@@ -1,0 +1,3 @@
+#!/bin/sh
+# Same build Vercel runs, so a commit that lands is one that deploys.
+exec pnpm -s check
